@@ -4,7 +4,7 @@
 
 ## 安装
 
-需要 Python 3.11+ 和 uv。私有仓库需要先有 GitHub 的 Git 读取权限。
+需要 Python 3.11+、uv 和 Git。可直接从公开的 GitHub 仓库安装，无需发布到 PyPI。
 
 ```sh
 uv tool install git+https://github.com/saltbo/bbox.git

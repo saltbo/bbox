@@ -29,7 +29,7 @@ uv tool install --editable .
 - Helm：`charts-pull`、`charts-push`、`charts-mirror`（默认读取当前目录的 `mirror.yaml`）。
 - 容器：`docker-copy`、`nerdctl-copy`，以及经 Lima 调用的 `buildctl`、`containerd`、`nerdctl`、`runc`。
 - Git：`git-cm`、`git-fire`、`git-update-history-author`。
-- 其他：`httptun`、`mkcourse`、`bark-notify`、`completion-install`、`dns-flushall`、`goland`、`gpg-pk-update`、`ha-service-do`、`istioctl-vsw`、`kubectl-vsw`、`psh-ipsw`、`psh-sproute`、`with-warp`、`x-browse`、`create-local-script`。
+- 其他：`httptun`、`mkcourse`、`bark-notify`、`completion-install`、`dns-flushall`、`gpg-pk-update`、`ha-service-do`、`istioctl-vsw`、`kubectl-vsw`、`psh-ipsw`、`psh-sproute`、`create-local-script`。
 
 原有命令名和用途保留；部分命令执行网络、系统配置、Git 提交/推送或历史改写，按原用途运行。它们可能依赖 macOS、Homebrew 工具、Lima、Helm、Docker、本机应用或 `~/.env` 中的个人配置。包不包含凭据。
 
@@ -44,4 +44,4 @@ uv run python -m unittest discover -s tests -v
 uv build
 ```
 
-工具代码从 `saltbo/dotfiles` 的 chezmoi 脚本迁移而来，保留本机已有调整，并纳入此前尚未被 chezmoi 管理的 `mkcourse`、`with-warp` 和 `x-browse`。`git-fire` 原始来源为 <https://github.com/qw3rtman/git-fire>，保留脚本中的出处。
+工具代码从 `saltbo/dotfiles` 的 chezmoi 脚本迁移而来，保留本机已有调整，并纳入此前尚未被 chezmoi 管理的 `mkcourse`。`git-fire` 原始来源为 <https://github.com/qw3rtman/git-fire>，保留脚本中的出处。

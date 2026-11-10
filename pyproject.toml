@@ -33,7 +33,6 @@ dns-flushall = "bbox.shell:main"
 git-cm = "bbox.shell:main"
 git-fire = "bbox.shell:main"
 git-update-history-author = "bbox.shell:main"
-goland = "bbox.shell:main"
 gpg-pk-update = "bbox.shell:main"
 ha-service-do = "bbox.shell:main"
 istioctl-vsw = "bbox.shell:main"
@@ -42,8 +41,6 @@ nerdctl = "bbox.shell:main"
 psh-ipsw = "bbox.shell:main"
 psh-sproute = "bbox.shell:main"
 runc = "bbox.shell:main"
-with-warp = "bbox.shell:main"
-x-browse = "bbox.shell:main"
 
 [tool.hatch.build.targets.wheel]
 packages = ["src/bbox"]

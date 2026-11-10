@@ -1,0 +1,7 @@
+#!/bin/sh
+
+export HTTP_PROXY=socks5h://127.0.0.1:25344
+export HTTPS_PROXY=socks5h://127.0.0.1:25344
+export ALL_PROXY=socks5h://127.0.0.1:25344
+
+exec "$@"

@@ -1,0 +1,25 @@
+#!/bin/bash
+set -euo pipefail
+
+version=${1:?Usage: kubectl-vsw <major.minor>}
+[[ "$version" =~ ^[0-9]+\.[0-9]+$ ]] || { echo "Expected a version such as 1.33" >&2; exit 1; }
+data_dir="${XDG_DATA_HOME:-$HOME/.local/share}/bbox/kubectl"
+bin_dir="${BBOX_BIN_DIR:-$HOME/.local/bin}"
+completion_dir="${XDG_DATA_HOME:-$HOME/.local/share}/zsh-completions"
+mkdir -p "$data_dir" "$bin_dir" "$completion_dir"
+binary="$data_dir/kubectl$version"
+
+if [[ ! -x "$binary" ]]; then
+    platform=$(uname -s | tr '[:upper:]' '[:lower:]')
+    arch=$(uname -m)
+    case "$arch" in arm64|aarch64) arch=arm64 ;; x86_64) arch=amd64 ;; *) echo "Unsupported architecture: $arch" >&2; exit 1 ;; esac
+    full_version=$(curl -fsSL "https://dl.k8s.io/release/stable-$version.txt")
+    temp=$(mktemp "$data_dir/.kubectl.XXXXXX")
+    trap 'rm -f "$temp"' EXIT
+    curl -fL "https://dl.k8s.io/release/$full_version/bin/$platform/$arch/kubectl" -o "$temp"
+    chmod 755 "$temp"
+    mv "$temp" "$binary"
+fi
+ln -sf "$binary" "$bin_dir/kubectl"
+"$binary" completion zsh > "$completion_dir/_kubectl"
+echo "Switched kubectl to $version ($binary)"

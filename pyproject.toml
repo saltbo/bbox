@@ -1,0 +1,49 @@
+[build-system]
+requires = ["hatchling>=1.26"]
+build-backend = "hatchling.build"
+
+[project]
+name = "saltbo-bbox"
+version = "0.1.0"
+description = "Saltbo's personal command-line toolbox"
+readme = "README.md"
+license-files = ["NOTICE"]
+requires-python = ">=3.11"
+dependencies = [
+  "fire>=0.7,<1",
+  "PyYAML>=6,<7",
+  "requests>=2.32,<3",
+]
+
+[project.scripts]
+bbox = "bbox.cli:main"
+charts-mirror = "bbox.charts_mirror:main"
+charts-pull = "bbox.charts_pull:main"
+charts-push = "bbox.charts_push:main"
+docker-copy = "bbox.docker_copy:main"
+httptun = "bbox.httptun:main"
+mkcourse = "bbox.mkcourse:main"
+nerdctl-copy = "bbox.nerdctl_copy:main"
+bark-notify = "bbox.shell:main"
+buildctl = "bbox.shell:main"
+completion-install = "bbox.shell:main"
+containerd = "bbox.shell:main"
+create-local-script = "bbox.shell:main"
+dns-flushall = "bbox.shell:main"
+git-cm = "bbox.shell:main"
+git-fire = "bbox.shell:main"
+git-update-history-author = "bbox.shell:main"
+goland = "bbox.shell:main"
+gpg-pk-update = "bbox.shell:main"
+ha-service-do = "bbox.shell:main"
+istioctl-vsw = "bbox.shell:main"
+kubectl-vsw = "bbox.shell:main"
+nerdctl = "bbox.shell:main"
+psh-ipsw = "bbox.shell:main"
+psh-sproute = "bbox.shell:main"
+runc = "bbox.shell:main"
+with-warp = "bbox.shell:main"
+x-browse = "bbox.shell:main"
+
+[tool.hatch.build.targets.wheel]
+packages = ["src/bbox"]

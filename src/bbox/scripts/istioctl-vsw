@@ -1,0 +1,25 @@
+#!/bin/bash
+set -euo pipefail
+
+version=${1:?Usage: istioctl-vsw <version>}
+[[ "$version" =~ ^[0-9]+\.[0-9]+\.[0-9]+$ ]] || { echo "Expected a version such as 1.25.2" >&2; exit 1; }
+data_dir="${XDG_DATA_HOME:-$HOME/.local/share}/bbox/istio"
+bin_dir="${BBOX_BIN_DIR:-$HOME/.local/bin}"
+completion_dir="${XDG_DATA_HOME:-$HOME/.local/share}/zsh-completions"
+mkdir -p "$data_dir" "$bin_dir" "$completion_dir"
+binary="$data_dir/istio-$version/bin/istioctl"
+
+if [[ ! -x "$binary" ]]; then
+    platform=$(uname -s | tr '[:upper:]' '[:lower:]')
+    arch=$(uname -m)
+    case "$arch" in arm64|aarch64) arch=arm64 ;; x86_64) arch=amd64 ;; *) echo "Unsupported architecture: $arch" >&2; exit 1 ;; esac
+    archive="istio-$version-$platform-$arch.tar.gz"
+    temp=$(mktemp -d "$data_dir/.download.XXXXXX")
+    trap 'rm -rf "$temp"' EXIT
+    curl -fL "https://github.com/istio/istio/releases/download/$version/$archive" -o "$temp/$archive"
+    tar -xzf "$temp/$archive" -C "$temp"
+    mv "$temp/istio-$version" "$data_dir/istio-$version"
+fi
+ln -sf "$binary" "$bin_dir/istioctl"
+"$binary" completion zsh > "$completion_dir/_istioctl"
+echo "Switched istioctl to $version ($binary)"

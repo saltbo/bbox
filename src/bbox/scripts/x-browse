@@ -1,0 +1,30 @@
+#!/bin/bash
+# Quick-start gstack browse with X (twitter) cookies imported from Chrome.
+# Usage: x-browse [url]
+#   x-browse              → open x.com/home
+#   x-browse /notifications → open x.com/notifications
+
+B=~/.claude/skills/gstack/browse/dist/browse
+
+if [ ! -x "$B" ]; then
+  echo "Error: gstack browse not found at $B"
+  exit 1
+fi
+
+echo "Importing X cookies from Chrome..."
+$B cookie-import-browser chrome --domain x.com 2>&1
+$B cookie-import-browser chrome --domain .x.com 2>&1
+
+URL="${1:-/home}"
+[[ "$URL" != http* ]] && URL="https://x.com${URL}"
+
+echo "Navigating to $URL..."
+$B goto "$URL" 2>&1
+
+FINAL_URL=$($B url 2>&1)
+if [[ "$FINAL_URL" == *"flow/login"* ]]; then
+  echo "Login failed — cookies may have expired. Re-login in Chrome and try again."
+  exit 1
+fi
+
+echo "Ready. Logged in at $FINAL_URL"

@@ -29,11 +29,23 @@ uv tool install --editable .
 - Helm：`charts-pull`、`charts-push`、`charts-mirror`（默认读取当前目录的 `mirror.yaml`）。
 - 容器：`docker-copy`、`nerdctl-copy`，以及经 Lima 调用的 `buildctl`、`containerd`、`nerdctl`、`runc`。
 - Git：`git-cm`、`git-fire`、`git-update-history-author`。
-- 其他：`httptun`、`mkcourse`、`bark-notify`、`completion-install`、`dns-flushall`、`gpg-pk-update`、`ha-service-do`、`istioctl-vsw`、`kubectl-vsw`、`psh-ipsw`、`psh-sproute`、`create-local-script`。
+- 其他：`httptun`、`mkcourse`、`bark-notify`、`dns-flushall`、`gpg-pk-update`、`ha-service-do`、`istioctl-vsw`、`kubectl-vsw`、`psh-ipsw`、`psh-sproute`。
 
 原有命令名和用途保留；部分命令执行网络、系统配置、Git 提交/推送或历史改写，按原用途运行。它们可能依赖 macOS、Homebrew 工具、Lima、Helm、Docker、本机应用或 `~/.env` 中的个人配置。包不包含凭据。
 
-`kubectl-vsw` 和 `istioctl-vsw` 将下载内容保存在 `~/.local/share/bbox/`，只在 `~/.local/bin` 创建活动版本入口；可用 `BBOX_BIN_DIR` 指定该入口目录。补全写入 `~/.local/share/zsh-completions`。`create-local-script` 在本地 bbox 仓库创建源码，默认仓库位置 `~/Develop/bogit/bbox`，可用 `BBOX_SOURCE_DIR` 修改；它会提示需要添加的命令声明。
+`kubectl-vsw` 和 `istioctl-vsw` 将下载内容保存在 `~/.local/share/bbox/`，只在 `~/.local/bin` 创建活动版本入口；可用 `BBOX_BIN_DIR` 指定该入口目录。kubectl/istioctl 自身的补全写入 `~/.local/share/zsh-completions`。
+
+## zsh 补全
+
+bbox 自带原生 zsh 补全。在 `.zshrc` 的 `compinit`（或 Oh My Zsh 初始化）之后加载：
+
+```zsh
+source <(bbox completion zsh)
+```
+
+个人 dotfiles 已自动加载，无需逐个安装补全文件。更新 bbox 后重新打开终端即可使用新版补全。
+
+支持 Helm 工具的参数、文件和目录，容器复制的布尔选项、`git-cm` 的提交类型、`git-fire` 的选项，以及本机缓存的 kubectl/Istio 版本。容器包装命令会复用已安装的上游补全，没有时提供文件补全。通知文本、实体 ID 等自由输入不生成候选；不查询远程仓库或服务。补全入口清单从包的命令声明自动生成，新增命令的具体参数规则维护在 `src/bbox/completion.zsh`。
 
 ## 开发
 

@@ -4,7 +4,7 @@ build-backend = "hatchling.build"
 
 [project]
 name = "saltbo-bbox"
-version = "0.1.0"
+version = "0.2.0"
 description = "Saltbo's personal command-line toolbox"
 readme = "README.md"
 license-files = ["NOTICE"]
@@ -26,9 +26,7 @@ mkcourse = "bbox.mkcourse:main"
 nerdctl-copy = "bbox.nerdctl_copy:main"
 bark-notify = "bbox.shell:main"
 buildctl = "bbox.shell:main"
-completion-install = "bbox.shell:main"
 containerd = "bbox.shell:main"
-create-local-script = "bbox.shell:main"
 dns-flushall = "bbox.shell:main"
 git-cm = "bbox.shell:main"
 git-fire = "bbox.shell:main"
